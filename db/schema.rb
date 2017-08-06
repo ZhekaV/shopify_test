@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170806145418) do
+ActiveRecord::Schema.define(version: 20170807063905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "products", force: :cascade do |t|
+    t.integer "shop_id", null: false
+    t.integer "shopify_id", null: false
+    t.string "title", null: false
+    t.text "body_html"
+    t.string "product_type"
+    t.string "published_scope"
+    t.string "image_url"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["published_scope"], name: "index_products_on_published_scope"
+    t.index ["shop_id"], name: "index_products_on_shop_id"
+  end
 
   create_table "shops", force: :cascade do |t|
     t.string "shopify_domain", null: false
@@ -23,4 +38,20 @@ ActiveRecord::Schema.define(version: 20170806145418) do
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
+  create_table "variants", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "shopify_id", null: false
+    t.string "title", null: false
+    t.integer "price", null: false
+    t.string "sku"
+    t.integer "position"
+    t.string "image_url"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_variants_on_product_id"
+  end
+
+  add_foreign_key "products", "shops", on_delete: :cascade
+  add_foreign_key "variants", "products", on_delete: :cascade
 end

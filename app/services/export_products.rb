@@ -7,4 +7,10 @@ class ExportProducts
 
   def call
   end
+
+  private
+
+  def products
+
+  end
 end
