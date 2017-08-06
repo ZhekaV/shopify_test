@@ -13,6 +13,7 @@ gem 'pg'
 gem 'puma'
 gem 'sass-rails'
 gem 'shopify_app'
+gem 'slim'
 gem 'turbolinks'
 gem 'uglifier'
 

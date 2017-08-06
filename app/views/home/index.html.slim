@@ -1,0 +1,11 @@
+h2 Products in the store
+ul
+  - @products.each do |product|
+    li= link_to product.title, "https://#{@shop_session.url}/admin/products/#{product.id}", target: "_top"
+
+hr
+
+ul
+  li= link_to '1. Export products from file to store (if needed).', export_path
+  li= link_to '2. Import products to app.', import_path
+  li= link_to '3. View as xml.', xml_path
