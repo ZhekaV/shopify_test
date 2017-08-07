@@ -8,6 +8,7 @@ end
 gem 'rails'
 
 gem 'coffee-rails'
+gem 'enumerize'
 gem 'jbuilder'
 gem 'kaminari'
 gem 'pg'

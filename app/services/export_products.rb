@@ -5,12 +5,9 @@ class ExportProducts
     @shop = Shop.find shop_id
   end
 
-  def call
-  end
+  def call; end
 
   private
 
-  def products
-
-  end
+  def products; end
 end

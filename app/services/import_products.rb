@@ -55,15 +55,15 @@ class ImportProducts
     shopify_request('Product')
   end
 
-  def collects
-    shopify_request('Collect')
-  end
-
   def custom_collections
     shopify_request('CustomCollection')
   end
 
   def smart_collections
     shopify_request('SmartCollection')
+  end
+
+  def collects
+    shopify_request('Collect')
   end
 end

@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807063905) do
+ActiveRecord::Schema.define(version: 20170807191740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "collections", force: :cascade do |t|
+    t.integer "shop_id", null: false
+    t.bigint "shopify_id", null: false
+    t.datetime "shopify_created_at"
+    t.datetime "shopify_updated_at"
+    t.string "kind", null: false
+    t.string "handle"
+    t.string "title"
+    t.text "body_html"
+    t.string "sort_order"
+    t.string "template_suffix"
+    t.string "published_scope"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["published_scope"], name: "index_collections_on_published_scope"
+    t.index ["shop_id"], name: "index_collections_on_shop_id"
+    t.index ["shopify_id"], name: "index_collections_on_shopify_id", unique: true
+  end
 
   create_table "products", force: :cascade do |t|
     t.integer "shop_id", null: false
@@ -58,6 +77,7 @@ ActiveRecord::Schema.define(version: 20170807063905) do
     t.index ["shopify_id"], name: "index_variants_on_shopify_id", unique: true
   end
 
+  add_foreign_key "collections", "shops", on_delete: :cascade
   add_foreign_key "products", "shops", on_delete: :cascade
   add_foreign_key "variants", "products", on_delete: :cascade
 end

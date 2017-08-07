@@ -48,7 +48,7 @@ module SaveProducts
 
   # TODO: refactor & memoise it
   def variants_with_images
-    temp = current_product.images.map { |i| [i.variant_ids, i.src] unless i.variant_ids.blank? }
+    temp = current_product.images.map { |i| [i.variant_ids, i.src] unless i.variant_ids.blank? }.compact
     return {} if temp.blank?
     hash = {}
     temp.each do |im|

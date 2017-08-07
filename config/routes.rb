@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   mount ShopifyApp::Engine, at: '/'
   mount Sidekiq::Web => '/sidekiq'
 
-  get 'export', to: 'products#export'
+  # get 'export', to: 'products#export'
   get 'import', to: 'products#import'
   get 'xml', to: 'products#xml', format: 'xml'
 end
