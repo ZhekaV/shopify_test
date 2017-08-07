@@ -17,17 +17,20 @@ ActiveRecord::Schema.define(version: 20170807063905) do
 
   create_table "products", force: :cascade do |t|
     t.integer "shop_id", null: false
-    t.integer "shopify_id", null: false
+    t.bigint "shopify_id", null: false
     t.string "title", null: false
     t.text "body_html"
     t.string "product_type"
     t.string "published_scope"
     t.string "image_url"
     t.string "url"
+    t.datetime "shopify_created_at"
+    t.datetime "shopify_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["published_scope"], name: "index_products_on_published_scope"
     t.index ["shop_id"], name: "index_products_on_shop_id"
+    t.index ["shopify_id"], name: "index_products_on_shopify_id", unique: true
   end
 
   create_table "shops", force: :cascade do |t|
@@ -40,16 +43,19 @@ ActiveRecord::Schema.define(version: 20170807063905) do
 
   create_table "variants", force: :cascade do |t|
     t.integer "product_id", null: false
-    t.integer "shopify_id", null: false
+    t.bigint "shopify_id", null: false
     t.string "title", null: false
     t.integer "price", null: false
     t.string "sku"
     t.integer "position"
     t.string "image_url"
     t.string "url"
+    t.datetime "shopify_created_at"
+    t.datetime "shopify_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_variants_on_product_id"
+    t.index ["shopify_id"], name: "index_variants_on_shopify_id", unique: true
   end
 
   add_foreign_key "products", "shops", on_delete: :cascade

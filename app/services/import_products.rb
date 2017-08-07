@@ -1,5 +1,8 @@
 class ImportProducts
   prepend SimpleCommand
+  include SaveCollections
+  include SaveProducts
+  include SaveRelations
 
   DELAY = 1
 
@@ -9,7 +12,10 @@ class ImportProducts
 
   def call
     open_session
-    products
+    save_products
+    save_custom_collections
+    save_smart_collections
+    save_relations
     close_session
   end
 
