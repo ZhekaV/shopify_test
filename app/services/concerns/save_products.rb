@@ -20,7 +20,7 @@ module SaveProducts
 
   def init_temp_product
     @temp_product = Product.new(
-      current_product.attributes.slice(:title, :body_html, :product_type, :published_scope).merge(
+      current_product.attributes.slice(:title, :body_html, :product_type, :published_scope, :handle, :vendor).merge(
         shop:               shop,
         shopify_id:         current_product.id,
         shopify_created_at: current_product.created_at,

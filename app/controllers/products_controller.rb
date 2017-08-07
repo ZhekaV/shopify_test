@@ -9,5 +9,7 @@ class ProductsController < ShopifyController
     redirect_to root_path
   end
 
-  def xml; end
+  def xml
+    @products = current_shop.products.includes(:variants, :collections).page(params[:page])
+  end
 end

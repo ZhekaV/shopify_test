@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807201338) do
+ActiveRecord::Schema.define(version: 20170807220508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20170807201338) do
     t.datetime "shopify_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "handle", null: false
+    t.string "vendor"
     t.index ["published_scope"], name: "index_products_on_published_scope"
     t.index ["shop_id"], name: "index_products_on_shop_id"
     t.index ["shopify_id"], name: "index_products_on_shopify_id", unique: true
