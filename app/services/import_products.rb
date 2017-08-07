@@ -10,6 +10,7 @@ class ImportProducts
     @shop = Shop.find shop_id
   end
 
+  # TODO: Add to each entity removal of nonexistent items
   def call
     open_session
     save_products

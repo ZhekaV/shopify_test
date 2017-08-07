@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170807191740) do
+ActiveRecord::Schema.define(version: 20170807201338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "collections", force: :cascade do |t|
-    t.integer "shop_id", null: false
+    t.bigint "shop_id", null: false
     t.bigint "shopify_id", null: false
     t.datetime "shopify_created_at"
     t.datetime "shopify_updated_at"
@@ -34,8 +34,18 @@ ActiveRecord::Schema.define(version: 20170807191740) do
     t.index ["shopify_id"], name: "index_collections_on_shopify_id", unique: true
   end
 
+  create_table "collects", force: :cascade do |t|
+    t.bigint "shop_id", null: false
+    t.bigint "collection_shopify_id", null: false
+    t.bigint "product_shopify_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collection_shopify_id", "product_shopify_id"], name: "index_collects_on_collection_shopify_id_and_product_shopify_id", unique: true
+    t.index ["shop_id"], name: "index_collects_on_shop_id"
+  end
+
   create_table "products", force: :cascade do |t|
-    t.integer "shop_id", null: false
+    t.bigint "shop_id", null: false
     t.bigint "shopify_id", null: false
     t.string "title", null: false
     t.text "body_html"
@@ -61,7 +71,7 @@ ActiveRecord::Schema.define(version: 20170807191740) do
   end
 
   create_table "variants", force: :cascade do |t|
-    t.integer "product_id", null: false
+    t.bigint "product_id", null: false
     t.bigint "shopify_id", null: false
     t.string "title", null: false
     t.integer "price", null: false
@@ -78,6 +88,7 @@ ActiveRecord::Schema.define(version: 20170807191740) do
   end
 
   add_foreign_key "collections", "shops", on_delete: :cascade
+  add_foreign_key "collects", "shops", on_delete: :cascade
   add_foreign_key "products", "shops", on_delete: :cascade
   add_foreign_key "variants", "products", on_delete: :cascade
 end

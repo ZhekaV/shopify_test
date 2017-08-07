@@ -38,6 +38,8 @@ GEM
       activemodel (= 5.1.3)
       activesupport (= 5.1.3)
       arel (~> 8.0)
+    activerecord-import (0.19.1)
+      activerecord (>= 3.2)
     activeresource (5.0.0)
       activemodel (>= 5.0, < 6)
       activemodel-serializers-xml (~> 1.0)
@@ -362,6 +364,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   better_errors
   binding_of_caller
   bullet

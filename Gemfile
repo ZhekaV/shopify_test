@@ -7,6 +7,7 @@ end
 
 gem 'rails'
 
+gem 'activerecord-import'
 gem 'coffee-rails'
 gem 'enumerize'
 gem 'jbuilder'
