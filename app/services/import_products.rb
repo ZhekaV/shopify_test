@@ -10,19 +10,32 @@ class ImportProducts
     @shop = Shop.find shop_id
   end
 
-  # TODO: Add to each entity removal of nonexistent items
   def call
+    clear_cache
     open_session
     save_products
+    delete_nonexistent_products
     save_custom_collections
     save_smart_collections
+    delete_nonexistent_collections
     save_relations
     close_session
   end
 
   private
 
-  attr_reader :shop, :session
+  attr_reader :shop, :session, :cache_namespace
+
+  def clear_cache
+    @cache_namespace = "/shops/#{shop.id}"
+    Rails.cache.delete("#{cache_namespace}/products")
+    Rails.cache.delete("#{cache_namespace}/collections")
+  end
+
+  def add_to_cache(kind, id)
+    nms = "#{cache_namespace}/#{kind}"
+    Rails.cache.write(nms, (Rails.cache.read(nms) || []) << id)
+  end
 
   def open_session
     @session = ShopifyAPI::Session.new(shop.shopify_domain, shop.shopify_token)

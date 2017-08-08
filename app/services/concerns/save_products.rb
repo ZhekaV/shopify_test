@@ -5,7 +5,7 @@ module SaveProducts
     products.each do |product|
       @current_product = product
       @persisted_product = Product.find_by(shopify_id: current_product.id)
-
+      add_to_cache('products', current_product.id)
       next if persisted_product && persisted_product.updated_at > current_product.updated_at
 
       init_temp_product
@@ -62,5 +62,9 @@ module SaveProducts
   def save_product
     persisted_product.delete if persisted_product.present?
     temp_product.save
+  end
+
+  def delete_nonexistent_products
+    shop.products.where.not(shopify_id: Rails.cache.read("#{cache_namespace}/products").compact).delete_all
   end
 end
